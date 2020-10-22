@@ -12,7 +12,6 @@ Download yolov4.weights file: https://drive.google.com/open?id=1cewMfusmPjYWbrnu
 
 ### Performance
 <p align="center"><img src="data/performance.png" width="640"\></p>
-
 ### Demo
 
 ```bash
@@ -35,21 +34,25 @@ If you want to run yolov3 or yolov3-tiny change ``--model yolov3`` in command
 
 ##### Yolov4 original weight
 <p align="center"><img src="result.png" width="640"\></p>
-
 ##### Yolov4 tflite int8
 <p align="center"><img src="result-int8.png" width="640"\></p>
-
 ### Convert to tflite
 
 ```bash
 # Save tf model for tflite converting
-python save_model.py --weights ./data/yolov4.weights --output ./checkpoints/yolov4-416 --input_size 416 --model yolov4 --framework tflite
+python save_model.py --weights ./data/yolov4.weights --output ./checkpoints/yolov4-416-fmtflite --input_size 416 --model yolov4 --framework tflite
+
+python save_model.py --weights ./data/yolov4.weights --output ./checkpoints/yolov4-416-fmtflite-chg0 --input_size 416 --model yolov4 --framework tflite
 
 # yolov4
-python convert_tflite.py --weights ./checkpoints/yolov4-416 --output ./checkpoints/yolov4-416.tflite
+python convert_tflite.py --weights ./checkpoints/yolov4-416-fmtflite --output ./checkpoints/yolov4-416.tflite
+
+python convert_tflite.py --weights ./checkpoints/yolov4-416-fmtflite-chg0 --output ./checkpoints/yolov4-416-chg0.tflite
 
 # yolov4 quantize float16
-python convert_tflite.py --weights ./checkpoints/yolov4-416 --output ./checkpoints/yolov4-416-fp16.tflite --quantize_mode float16
+python convert_tflite.py --weights ./checkpoints/yolov4-416-fmtflite --output ./checkpoints/yolov4-416-fp16.tflite --quantize_mode float16
+
+python convert_tflite.py --weights ./checkpoints/yolov4-416-fmtflite-chg0 --output ./checkpoints/yolov4-416-chg0-float16.tflite --quantize_mode float16
 
 # yolov4 quantize int8
 python convert_tflite.py --weights ./checkpoints/yolov4-416 --output ./checkpoints/yolov4-416-int8.tflite --quantize_mode int8 --dataset ./coco_dataset/coco/val207.txt
@@ -59,7 +62,7 @@ python detect.py --weights ./checkpoints/yolov4-416.tflite --size 416 --model yo
 ```
 Yolov4 and Yolov4-tiny int8 quantization have some issues. I will try to fix that. You can try Yolov3 and Yolov3-tiny int8 quantization 
 ### Convert to TensorRT
-```bash# yolov3
+```bash
 python save_model.py --weights ./data/yolov3.weights --output ./checkpoints/yolov3.tf --input_size 416 --model yolov3
 python convert_trt.py --weights ./checkpoints/yolov3.tf --quantize_mode float16 --output ./checkpoints/yolov3-trt-fp16-416
 
@@ -103,7 +106,7 @@ python main.py --output results_yolov4_tf
 python benchmarks.py --size 416 --model yolov4 --weights ./data/yolov4.weights
 ```
 #### TensorRT performance
- 
+
 | YoloV4 416 images/s |   FP32   |   FP16   |   INT8   |
 |---------------------|----------|----------|----------|
 | Batch size 1        | 55       | 116      |          |
@@ -175,7 +178,7 @@ The training performance is not fully reproduced yet, so I recommended to use Al
 
   * YOLOv4: Optimal Speed and Accuracy of Object Detection [YOLOv4](https://arxiv.org/abs/2004.10934).
   * [darknet](https://github.com/AlexeyAB/darknet)
-  
+
    My project is inspired by these previous fantastic YOLOv3 implementations:
   * [Yolov3 tensorflow](https://github.com/YunYang1994/tensorflow-yolov3)
   * [Yolov3 tf2](https://github.com/zzh8829/yolov3-tf2)

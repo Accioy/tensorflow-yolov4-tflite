@@ -53,9 +53,10 @@ def demo():
   logging.info('tflite model loaded')
 
   input_details = interpreter.get_input_details()
-  print(input_details)
+  print('input_details:',input_details)
   output_details = interpreter.get_output_details()
-  print(output_details)
+  print('output_details:',output_details)
+  print(len(output_details))
 
   input_shape = input_details[0]['shape']
 
@@ -64,7 +65,10 @@ def demo():
   interpreter.set_tensor(input_details[0]['index'], input_data)
   interpreter.invoke()
   output_data = [interpreter.get_tensor(output_details[i]['index']) for i in range(len(output_details))]
-
+  # print(' ')
+  # print(output_details[0]['index'])
+  # output_data = interpreter.get_tensor(output_details[0]['index'])
+  print(len(output_data))
   print(output_data)
 
 def main(_argv):

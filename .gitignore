@@ -1,4 +1,4 @@
-./checkpoints
-./data
+./checkpoints/*
+./data/yolov4.weights
 .vscode
 *__pycache__*
