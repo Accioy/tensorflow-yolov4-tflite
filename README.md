@@ -1,4 +1,13 @@
+changed save_model.py and pack the ``filter_boxes`` function into tf model.
+
+In order to convert to tflite model, I also changed the implementation of ``filter_boxes`` to ``filter_boxes_tflite``.
+
+This work is preparation for another project: https://github.com/Accioy/yolov4-webcam-flask
+
+original readme of tf-yolov4:
+
 # tensorflow-yolov4-tflite
+
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
 YOLOv4, YOLOv4-tiny Implemented in Tensorflow 2.0. 
