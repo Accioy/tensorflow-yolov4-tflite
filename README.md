@@ -4,6 +4,16 @@ In order to convert to tflite model, I also changed the implementation of ``filt
 
 This work is preparation for another project: https://github.com/Accioy/yolov4-webcam-flask
 
+```bash
+python save_model.py --weights ./data/yolov4.weights --output ./checkpoints/yolov4-416-fmtflite-chg0 --input_size 416 --model yolov4 --framework tflite
+python convert_tflite.py --weights ./checkpoints/yolov4-416-fmtflite-chg0 --output ./checkpoints/yolov4-416-chg0.tflite
+# for tiny:
+python save_model.py --weights ./data/yolov4-tiny.weights --output ./checkpoints/yolov4-tiny-416-fmtflite-chg0 --input_size 416 --model yolov4 --framework tflite --tiny
+python convert_tflite.py --weights ./checkpoints/yolov4-tiny-416-fmtflite-chg0 --output ./checkpoints/yolov4-tiny-416-chg0.tflite
+```
+
+
+
 original readme of tf-yolov4:
 
 # tensorflow-yolov4-tflite
@@ -49,9 +59,12 @@ If you want to run yolov3 or yolov3-tiny change ``--model yolov3`` in command
 
 ```bash
 # Save tf model for tflite converting
-python save_model.py --weights ./data/yolov4.weights --output ./checkpoints/yolov4-416-fmtflite --input_size 416 --model yolov4 --framework tflite
+
 
 python save_model.py --weights ./data/yolov4.weights --output ./checkpoints/yolov4-416-fmtflite-chg0 --input_size 416 --model yolov4 --framework tflite
+# for tiny:
+python save_model.py --weights ./data/yolov4-tiny.weights --output ./checkpoints/yolov4-tiny-416-fmtflite-chg0 --input_size 416 --model yolov4 --framework tflite --tiny
+
 
 # yolov4
 python convert_tflite.py --weights ./checkpoints/yolov4-416-fmtflite --output ./checkpoints/yolov4-416.tflite
